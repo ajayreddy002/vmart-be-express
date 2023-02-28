@@ -2,9 +2,9 @@ const { connect } = require("../config/db.config");
 const { Product } = require("../models/product");
 
 class ProductRepository {
-    constructor() {
-        connect();
-    }
+    // constructor() {
+    //     connect();
+    // }
     async createProduct(req, res) {
         try {
             const params = req.body

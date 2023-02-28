@@ -2,9 +2,9 @@ const { connect } = require("../config/db.config");
 const { SubCategories } = require("../models/catogories");
 
 class SubCategoryRepository {
-    constructor() {
-        connect();
-    }
+    // constructor() {
+    //     connect();
+    // }
     async createSubCategory(req, res) {
         try {
             const params = req.body;

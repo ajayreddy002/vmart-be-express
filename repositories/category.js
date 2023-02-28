@@ -2,9 +2,9 @@ const { connect } = require("../config/db.config");
 const { Categories } = require("../models/catogories");
 
 class CategoryRepository {
-    constructor() {
-        connect();
-    }
+    // constructor() {
+    //     connect();
+    // }
     async createCategory(req, res) {
         try {
             const params = req.body;

@@ -9,6 +9,18 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+const PORT = process.env.PORT || 3000
+
+// db connection
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +40,12 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+//Connect to the database before listening
+connectDB().then(() => {
+  app.listen(PORT, () => {
+      console.log("listening for requests");
+  })
+})
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
