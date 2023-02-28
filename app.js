@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 require('dotenv').config()
 var logger = require('morgan');
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -14,8 +15,12 @@ const PORT = process.env.PORT || 3000
 // db connection
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    const url = process.env.MONGO_CONNECTION_STR;
+    mongoose.set("strictQuery", false);
+    const conn = mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
   } catch (error) {
     console.log(error);
     process.exit(1);
@@ -36,18 +41,18 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 //Connect to the database before listening
 connectDB().then(() => {
   app.listen(PORT, () => {
-      console.log("listening for requests");
+    console.log("listening for requests");
   })
 })
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
