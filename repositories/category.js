@@ -1,5 +1,5 @@
 const { connect } = require("../config/db.config");
-const { Categories } = require("../models/catogories");
+const { Categories } = require("../models/admin/catogories");
 
 class CategoryRepository {
     // constructor() {

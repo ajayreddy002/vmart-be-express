@@ -1,5 +1,5 @@
 const { connect } = require("../config/db.config");
-const { Product } = require("../models/product");
+const { Product } = require("../models/admin/product");
 
 class ProductRepository {
     // constructor() {
@@ -42,7 +42,6 @@ class ProductRepository {
                 const updatedRes = await Product.findOneAndUpdate(filter, params, {
                     new: true
                 });
-                console.log(updatedRes._id)
                 if (updatedRes._id) {
                     res.status(200).send({ message: 'Product updated successfully' });
                 } else {

@@ -17,7 +17,7 @@ const connectDB = async () => {
   try {
     const url = process.env.MONGO_CONNECTION_STR;
     mongoose.set("strictQuery", false);
-    const conn = mongoose.connect(url, {
+    mongoose.connect(url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
